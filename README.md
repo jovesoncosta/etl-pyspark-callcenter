@@ -82,16 +82,19 @@ pytest tests/
 Com o ambiente ativado `(venv)`, você pode rodar os módulos diretamente da raiz do projeto:
 
 **Gerar Análises e Métricas Exploratórias:**
+
 \`\`\`bash
 python -m src.analise_exploratoria
 \`\`\`
 
 **Rodar o Pipeline ETL (Gerar Data Lake Parquet):**
+
 \`\`\`bash
 python -m src.vendas_diarias
 \`\`\`
 
 **Executar a Auditoria Financeira Final:**
+
 \`\`\`bash
 python -m src.auditar_lideres
 \`\`\`
