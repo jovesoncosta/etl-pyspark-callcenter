@@ -36,8 +36,8 @@ Durante a fase de *Data Profiling*, a abordagem analítica revelou anomalias cr�
    * *Problema:* Registros no sistema de telefonia continham datas de término anteriores às datas de início (ex: início em 2025, fim em 2022), gerando durações negativas na ordem dos milhões de minutos.
    * *Solução:* Implementação de um filtro de qualidade rigoroso (`duracao_min >= 0`) na Análise Exploratória, impedindo a distorção da métrica de Tempo Médio Geral da empresa (corrigido para o valor real de ~9.92 minutos).
 
-2. **Tratamento de Nulos em Chaves de Particionamento (O "Líder Fantasma"):**
-   * *Problema:* O cargo de Gerência Geral não possui um Líder de Equipe cadastrado no RH (valor nulo). No Spark, particionar dinamicamente por uma coluna com valores nulos pode gerar falhas de gravação ou diretórios corrompidos no Data Lake.
+2. **Tratamento de Nulos em Chaves de Particionamento:**
+   * *Problema:* O cargo de Gerência Geral não possui um Líder de Equipe cadastrado (valor nulo). No Spark, particionar dinamicamente por uma coluna com valores nulos pode gerar falhas de gravação ou diretórios corrompidos no Data Lake.
    * *Solução:* Injeção do método `.fillna("Sem_Lider_Informado")` no script de ETL, garantindo a integridade estrutural das pastas Parquet.
 
 3. **Mapeamento de Colisão de Chaves Primárias:**
