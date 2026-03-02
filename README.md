@@ -61,7 +61,7 @@ Certifique-se de ter o **Java 11** e o **Python 3** instalados na sua máquina.
 
 ### 2. Configurando o Ambiente Virtual
 Abra o seu terminal, navegue até a raiz do projeto e execute:
-\`\`\`bash
+
 # Cria o ambiente virtual isolado
 python3 -m venv venv
 
@@ -70,23 +70,21 @@ source venv/bin/activate
 
 # Instala as dependências (PySpark e Pytest)
 pip install pyspark==3.5.0 pytest
-\`\`\`
+
 
 ### 3. Executando os Testes Unitários
 Antes de rodar o pipeline, valide as regras de negócio executando a suíte de testes (com Mocks em memória):
 
-\`\`\`bash
 pytest tests/
-\`\`\`
+
 
 ### 4. Executando os Pipelines Principais
 Com o ambiente ativado `(venv)`, você pode rodar os módulos diretamente da raiz do projeto:
 
 **Gerar Análises e Métricas Exploratórias:**
 
-\`\`\`bash
 python -m src.analise_exploratoria
-\`\`\`
+
 
 ![WhatsApp Image 2026-03-02 at 09 01 32](https://github.com/user-attachments/assets/14bd58b9-4836-4bde-aab2-ce93d91fa0e5)
 
@@ -102,17 +100,15 @@ python -m src.analise_exploratoria
 
 **Rodar o Pipeline ETL (Gerar Data Lake Parquet):**
 
-\`\`\`bash
 python -m src.vendas_diarias
-\`\`\`
+
 
 ![WhatsApp Image 2026-03-02 at 09 01 33 (3)](https://github.com/user-attachments/assets/dc15ad04-7cc2-4c97-885c-9a1501dcd833)
 
 **Executar a Auditoria Financeira Final:**
 
-\`\`\`bash
 python -m src.auditar_lideres
-\`\`\`
+
 
 ![WhatsApp Image 2026-03-02 at 09 13 16](https://github.com/user-attachments/assets/31efe787-5a8b-422e-823f-4187af4455b8)
 
