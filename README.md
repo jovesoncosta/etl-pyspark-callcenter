@@ -87,11 +87,19 @@ Com o ambiente ativado `(venv)`, você pode rodar os módulos diretamente da rai
 python -m src.analise_exploratoria
 \`\`\`
 
+![WhatsApp Image 2026-03-02 at 09 01 32](https://github.com/user-attachments/assets/14bd58b9-4836-4bde-aab2-ce93d91fa0e5)
+
+
+![WhatsApp Image 2026-03-02 at 09 01 33](https://github.com/user-attachments/assets/8d0a27cf-d326-44a3-9f82-6e8b0563e65b)
+
+
 **Rodar o Pipeline ETL (Gerar Data Lake Parquet):**
 
 \`\`\`bash
 python -m src.vendas_diarias
 \`\`\`
+
+![WhatsApp Image 2026-03-02 at 09 01 33 (3)](https://github.com/user-attachments/assets/dc15ad04-7cc2-4c97-885c-9a1501dcd833)
 
 **Executar a Auditoria Financeira Final:**
 
