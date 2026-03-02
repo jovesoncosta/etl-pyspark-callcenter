@@ -1,6 +1,6 @@
 # Pipeline de Analise/Engenharia de Dados: Análise de Call Center e Vendas
 
-Este repositório contém o desenvolvimento de um pipeline de Extração, Transformação e Carga (ETL) em PySpark, concebido para processar dados de atendimento e faturamento de um Call Center. O objetivo central é transformar dados transacionais brutos (CSV) num Data Lake otimizado (Parquet), garantindo a integridade financeira e a qualidade da informação.
+Este repositório contém o desenvolvimento de um pipeline de Extração, Transformação e Carga (ETL) em PySpark, concebido para processar dados de atendimento e faturamento de um Call Center. O objetivo central é transformar dados transacionais brutos (CSV) em um Data Lake otimizado (Parquet), garantindo a integridade financeira e a qualidade da informação.
 
 ## 🏗️ Arquitetura e Tecnologias
 * **Ambiente Nativo:** macOS / Linux (Baseado em Unix)
