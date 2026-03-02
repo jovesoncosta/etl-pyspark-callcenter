@@ -93,6 +93,12 @@ python -m src.analise_exploratoria
 ![WhatsApp Image 2026-03-02 at 09 01 33](https://github.com/user-attachments/assets/8d0a27cf-d326-44a3-9f82-6e8b0563e65b)
 
 
+![WhatsApp Image 2026-03-02 at 09 01 33 (1)](https://github.com/user-attachments/assets/96f4c9ce-2b62-4d37-bad3-df011fb46e57)
+
+
+![WhatsApp Image 2026-03-02 at 09 01 33 (2)](https://github.com/user-attachments/assets/4099ef58-0da4-436b-b3b0-6ca9f3329d69)
+
+
 **Rodar o Pipeline ETL (Gerar Data Lake Parquet):**
 
 \`\`\`bash
