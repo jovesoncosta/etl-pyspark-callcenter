@@ -10,26 +10,24 @@ Este repositório contém o desenvolvimento de um pipeline de Extração, Transf
 * **Armazenamento de Destino:** Arquivos colunares `.parquet`
 * **Estratégia de Particionamento:** Particionamento dinâmico por Liderança da Equipe, otimizado para evitar o problema de *Small Files* (1 ficheiro por partição).
 
-## 📂 Estrutura do Repositório
-\`\`\`text
-teste_engenharia_dados/
-│
-├── data/                        # Diretório de dados (ignorado no Git via .gitignore)
-│   ├── raw/                     # Arquivos CSV originais (pessoas, telefonia, avaliacoes)
-│   └── output/vendas_diarias/   # Destino da tabela Parquet particionada
-│
-├── src/                         # Código-fonte do Pipeline
-│   ├── config.py                # Tipagem forte (Schemas) e mapeamento de diretórios
-│   ├── spark_utils.py           # Padronização de Sessão Spark e Logs
-│   ├── analise_exploratoria.py  # Script de respostas de negócio e Data Quality
-│   ├── vendas_diarias.py        # Pipeline principal de ETL (Geração do Parquet)
-│   └── auditar_lideres.py       # Script de conciliação financeira automatizada
-│
-├── tests/                       # Módulo de Qualidade de Software
-│   └── test_transformations.py  # Testes unitários com mocks em memória
-│
-└── README.md                    # Documentação do projeto
-\`\`\`
+## 📂 > **Estrutura de Diretórios**
+> ```text
+> teste_engenharia_dados/
+> │
+> ├── data/                        # Dados locais (Ignorados no Git)
+> │   ├── raw/                     # CSVs de origem (Pessoas, Telefonia, Avaliações)
+> │   └── output/vendas_diarias/   # Data Lake (Tabelas Parquet particionadas)
+> │
+> ├── src/                         # Pipeline de Dados
+> │   ├── config.py                # Tipagem forte (Schemas) e rotas
+> │   ├── spark_utils.py           # Sessão do Spark e Logs
+> │   ├── analise_exploratoria.py  # Descobertas de negócio e Data Quality
+> │   ├── vendas_diarias.py        # ETL Principal (Geração do Parquet)
+> │   └── auditar_lideres.py       # Conciliação financeira automatizada
+> │
+> └── tests/                       # Módulo de Qualidade de Código
+>     └── test_transformations.py  # Testes unitários do ETL em memória
+> ```
 
 ## Qualidade de Dados (Data Quality) e Decisões de Engenharia
 Durante a fase de *Data Profiling*, a abordagem analítica revelou anomalias críticas nas bases de origem. Foram implementadas as seguintes soluções no pipeline para garantir a resiliência dos dados:
