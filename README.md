@@ -1,0 +1,99 @@
+# Pipeline de Analise/Engenharia de Dados: Análise de Call Center e Vendas
+
+Este repositório contém o desenvolvimento de um pipeline de Extração, Transformação e Carga (ETL) em PySpark, concebido para processar dados de atendimento e faturamento de um Call Center. O objetivo central é transformar dados transacionais brutos (CSV) num Data Lake otimizado (Parquet), garantindo a integridade financeira e a qualidade da informação.
+
+## 🏗️ Arquitetura e Tecnologias
+* **Ambiente Nativo:** macOS / Linux (Baseado em Unix)
+* **Linguagem:** Python 3.9+
+* **Framework de Processamento:** Apache Spark (PySpark 3.5.0)
+* **Testes Automatizados:** Pytest
+* **Armazenamento de Destino:** Arquivos colunares `.parquet`
+* **Estratégia de Particionamento:** Particionamento dinâmico por Liderança da Equipe, otimizado para evitar o problema de *Small Files* (1 ficheiro por partição).
+
+## 📂 Estrutura do Repositório
+\`\`\`text
+teste_engenharia_dados/
+│
+├── data/                        # Diretório de dados (ignorado no Git via .gitignore)
+│   ├── raw/                     # Arquivos CSV originais (pessoas, telefonia, avaliacoes)
+│   └── output/vendas_diarias/   # Destino da tabela Parquet particionada
+│
+├── src/                         # Código-fonte do Pipeline
+│   ├── config.py                # Tipagem forte (Schemas) e mapeamento de diretórios
+│   ├── spark_utils.py           # Padronização de Sessão Spark e Logs
+│   ├── analise_exploratoria.py  # Script de respostas de negócio e Data Quality
+│   ├── vendas_diarias.py        # Pipeline principal de ETL (Geração do Parquet)
+│   └── auditar_lideres.py       # Script de conciliação financeira automatizada
+│
+├── tests/                       # Módulo de Qualidade de Software
+│   └── test_transformations.py  # Testes unitários com mocks em memória
+│
+└── README.md                    # Documentação do projeto
+\`\`\`
+
+## Qualidade de Dados (Data Quality) e Decisões de Engenharia
+Durante a fase de *Data Profiling*, a abordagem analítica revelou anomalias críticas nas bases de origem. Foram implementadas as seguintes soluções no pipeline para garantir a resiliência dos dados:
+
+1. **Correção de Anomalias Temporais (Viagens no Tempo):**
+   * *Problema:* Registros no sistema de telefonia continham datas de término anteriores às datas de início (ex: início em 2025, fim em 2022), gerando durações negativas na ordem dos milhões de minutos.
+   * *Solução:* Implementação de um filtro de qualidade rigoroso (`duracao_min >= 0`) na Análise Exploratória, impedindo a distorção da métrica de Tempo Médio Geral da empresa (corrigido para o valor real de ~9.92 minutos).
+
+2. **Tratamento de Nulos em Chaves de Particionamento (O "Líder Fantasma"):**
+   * *Problema:* O cargo de Gerência Geral não possui um Líder de Equipe cadastrado no RH (valor nulo). No Spark, particionar dinamicamente por uma coluna com valores nulos pode gerar falhas de gravação ou diretórios corrompidos no Data Lake.
+   * *Solução:* Injeção do método `.fillna("Sem_Lider_Informado")` no script de ETL, garantindo a integridade estrutural das pastas Parquet.
+
+3. **Mapeamento de Colisão de Chaves Primárias:**
+   * *Problema:* A base de avaliações reciclou o `ID_Monitoria` (ex: ID 448180) para diferentes usuários e datas.
+   * *Ação:* A inconsistência foi mapeada e isolada para report
+
+## Validação Financeira e Auditoria
+O projeto não termina na execução do ETL. Para atestar a precisão das transformações, foi construído um módulo de auditoria (`auditar_lideres.py`) que realiza o teste de conciliação financeira ("Prova Real").
+
+O teste cruza os valores brutos esperados nos CSVs com os valores efetivamente gravados no Data Lake, validando partição por partição. 
+
+---
+## Como Executar o Projeto (macOS / Linux)
+
+O projeto foi construído para rodar nativamente em terminais Unix, sem necessidade de emuladores ou configurações complexas de caminhos.
+
+### 1. Pré-requisitos
+Certifique-se de ter o **Java 11** e o **Python 3** instalados na sua máquina.
+* No macOS (via Homebrew): `brew install openjdk@11 python`
+* No Linux (Ubuntu/Debian): `sudo apt install openjdk-11-jdk python3 python3-venv`
+
+### 2. Configurando o Ambiente Virtual
+Abra o seu terminal, navegue até a raiz do projeto e execute:
+\`\`\`bash
+# Cria o ambiente virtual isolado
+python3 -m venv venv
+
+# Ativa o ambiente virtual
+source venv/bin/activate
+
+# Instala as dependências (PySpark e Pytest)
+pip install pyspark==3.5.0 pytest
+\`\`\`
+
+### 3. Executando os Testes Unitários
+Antes de rodar o pipeline, valide as regras de negócio executando a suíte de testes (com Mocks em memória):
+\`\`\`bash
+pytest tests/
+\`\`\`
+
+### 4. Executando os Pipelines Principais
+Com o ambiente ativado `(venv)`, você pode rodar os módulos diretamente da raiz do projeto:
+
+**Gerar Análises e Métricas Exploratórias:**
+\`\`\`bash
+python -m src.analise_exploratoria
+\`\`\`
+
+**Rodar o Pipeline ETL (Gerar Data Lake Parquet):**
+\`\`\`bash
+python -m src.vendas_diarias
+\`\`\`
+
+**Executar a Auditoria Financeira Final:**
+\`\`\`bash
+python -m src.auditar_lideres
+\`\`\`
