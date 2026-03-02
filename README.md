@@ -74,6 +74,7 @@ pip install pyspark==3.5.0 pytest
 
 ### 3. Executando os Testes Unitários
 Antes de rodar o pipeline, valide as regras de negócio executando a suíte de testes (com Mocks em memória):
+
 \`\`\`bash
 pytest tests/
 \`\`\`
