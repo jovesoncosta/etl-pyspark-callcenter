@@ -112,3 +112,6 @@ python -m src.vendas_diarias
 \`\`\`bash
 python -m src.auditar_lideres
 \`\`\`
+
+![WhatsApp Image 2026-03-02 at 09 13 16](https://github.com/user-attachments/assets/31efe787-5a8b-422e-823f-4187af4455b8)
+
